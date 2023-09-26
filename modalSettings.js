@@ -70,12 +70,7 @@ function heightSpinner({ dispatch }) {
 
 function settingsContent({ dispatch }) {
   return html`<div id="settings-modal">
-    <span style="font-weight: 800;">Settings</span>
-    <button
-      id="close-settings"
-      @click=${() => dispatch({ showSettingsModal: false })}>
-      <i class="fa-solid fa-circle-xmark"></i>
-    </button>
+    <span style="font-weight: 800;">Settings</span><span></span>
     ${widthSpinner({ dispatch })} ${heightSpinner({ dispatch })}
     <label for="toggle-grid">Grid</label>
     <input
@@ -86,7 +81,7 @@ function settingsContent({ dispatch }) {
   </div>`;
 }
 
-export function settingsModal({ dispatch }) {
+export function modalSettings({ dispatch }) {
   return html`<style>
       #settings {
         position: relative;

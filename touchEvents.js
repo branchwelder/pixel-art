@@ -8,17 +8,17 @@ function touchEventsExtension({ state, dispatch }, { tools, target }) {
 
     if (!onMove) return;
 
-    let end = () => {
+    function end() {
       target.removeEventListener("touchmove", move);
       target.removeEventListener("touchcancel", end);
       target.removeEventListener("touchend", end);
-    };
-    let move = () => {
+    }
+    function move() {
       let newPos = state.pos;
       if (newPos.x == pos.x && newPos.y == pos.y) return;
       onMove(state.pos, state);
       pos = newPos;
-    };
+    }
     target.addEventListener("touchmove", move);
     target.addEventListener("touchcancel", end);
     target.addEventListener("touchend", end);

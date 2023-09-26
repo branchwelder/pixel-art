@@ -6,17 +6,26 @@ function pointerEventsExtension({ state, dispatch }, { tools, target }) {
 
     if (!onMove) return;
 
-    let move = (moveEvent) => {
+    function move(moveEvent) {
       if (moveEvent.buttons == 0) {
-        target.removeEventListener("mousemove", move);
+        end();
       } else {
         let newPos = state.pos;
         if (newPos.x == pos.x && newPos.y == pos.y) return;
         onMove(state.pos, state);
         pos = newPos;
       }
-    };
-    target.addEventListener("mousemove", move);
+    }
+
+    function end() {
+      target.removeEventListener("pointermove", move);
+      target.removeEventListener("pointerup", end);
+      target.removeEventListener("pointerleave", end);
+    }
+
+    target.addEventListener("pointermove", move);
+    target.addEventListener("pointerup", end);
+    target.addEventListener("pointerleave", end);
   });
 
   return {

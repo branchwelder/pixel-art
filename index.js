@@ -1,6 +1,6 @@
 import { html, render } from "lit-html";
 
-import { state, updateState } from "./state";
+import { state, updateState, undo } from "./state";
 
 import { Bimp } from "./Bimp";
 import { App } from "./App";
@@ -16,7 +16,9 @@ import { pointerTracker } from "./pointerTracker";
 import { touchEvents } from "./touchEvents";
 import { touchTracker } from "./touchTracker";
 
-import { settingsModal } from "./settingsModal";
+import { modalSettings } from "./modalSettings";
+import { modalDownload } from "./modalDownload";
+
 import { colorPalette } from "./colorPalette";
 
 let app;
@@ -36,18 +38,14 @@ function dispatch(action) {
   app.syncState(state, changes);
 }
 
-function download() {
-  const downloadAnchorNode = document.createElement("a");
+window.addEventListener("mousedown", (e) => {
+  // close modals if click outside
+  const settings = document.getElementById("settings");
+  const download = document.getElementById("download");
 
-  downloadAnchorNode.setAttribute(
-    "href",
-    editorCanvas.toDataURL("image/x-icon")
-  );
-  downloadAnchorNode.setAttribute("download", "favicon.ico");
-  document.body.appendChild(downloadAnchorNode);
-  downloadAnchorNode.click();
-  downloadAnchorNode.remove();
-}
+  if (!settings.contains(e.target)) dispatch({ showSettingsModal: false });
+  if (!download.contains(e.target)) dispatch({ showDownloadModal: false });
+});
 
 function view() {
   return html` <div id="taskbar">
@@ -55,10 +53,23 @@ function view() {
         art
       </span>
       <div id="taskbar-buttons">
-        <!-- <button class="taskbar-btn" @click=${() => download()}>
-          <i class="fa-solid fa-download"></i>
-        </button> -->
-        ${settingsModal({ dispatch })}
+        <button
+          class="taskbar-btn"
+          @click=${() => {
+            dispatch({ bitmap: Bimp.empty(state.width, state.height, 0) });
+          }}>
+          <i class="fa-solid fa-file"></i>
+        </button>
+        <button
+          class="taskbar-btn"
+          @click=${() => {
+            undo();
+            app.syncState(state);
+          }}>
+          <i class="fa-solid fa-arrow-rotate-left"></i>
+        </button>
+
+        ${modalDownload({ dispatch })} ${modalSettings({ dispatch })}
       </div>
     </div>
 

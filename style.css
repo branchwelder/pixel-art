@@ -193,6 +193,7 @@ button {
   position: relative;
   background: linear-gradient(var(--current), var(--current)),
     var(--transparency);
+  transition: 100ms;
 }
 
 .color-select.selected {

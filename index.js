@@ -25,7 +25,7 @@ let app;
 
 const tools = { brush, flood, line, rect, shift };
 const iconMap = {
-  flood: "fa-fill-drip",
+  flood: "fa-fill-drip fa-flip-horizontal",
   brush: "fa-paintbrush",
   rect: "fa-vector-square",
   line: "fa-minus",
@@ -88,6 +88,10 @@ function view() {
       </div>
 
       <div id="editor-container">
+        <div id="pointer">
+          <i class="fa-solid ${iconMap[state.activeTool]}"></i>
+        </div>
+
         <div id="canvas-container">
           <canvas id="art"></canvas>
           <canvas id="grid"></canvas>
@@ -131,7 +135,8 @@ window.onload = () => {
   let gridCanvas = document.getElementById("grid");
   let outlineCanvas = document.getElementById("outline");
   let editorCanvas = document.getElementById("art");
-
+  const canvasContainer = document.getElementById("canvas-container");
+  const pointer = document.getElementById("pointer");
   state.scale = measure();
 
   if (isMobile()) {
@@ -151,6 +156,18 @@ window.onload = () => {
       ],
     });
   } else {
+    // make the tool icon follow the pointer
+    canvasContainer.addEventListener("pointermove", (e) => {
+      pointer.style.transform = `translate(${e.pageX}px, ${e.pageY}px)`;
+    });
+    canvasContainer.addEventListener("pointerleave", (e) => {
+      pointer.style.display = `none`;
+    });
+    canvasContainer.addEventListener("pointerenter", (e) => {
+      pointer.style.display = `block`;
+    });
+
+    // desktop app setup
     app = new App({
       state,
       dispatch,

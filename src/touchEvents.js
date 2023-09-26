@@ -13,6 +13,7 @@ function touchEventsExtension({ state, dispatch }, { tools, target }) {
       target.removeEventListener("touchcancel", end);
       target.removeEventListener("touchend", end);
     }
+
     function move() {
       let newPos = state.pos;
       if (newPos.x == pos.x && newPos.y == pos.y) return;

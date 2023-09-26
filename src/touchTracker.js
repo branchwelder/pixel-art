@@ -1,6 +1,4 @@
 export function touchTrackingExtension({ state, dispatch }, { target }) {
-  state.pos = { x: -1, y: -1 };
-
   function posAtCoords(event) {
     const bounds = target.getBoundingClientRect();
 

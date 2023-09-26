@@ -15,7 +15,6 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  user-select: none;
 }
 
 body {
@@ -60,6 +59,7 @@ canvas {
   flex: 0 0;
   gap: 5px;
   justify-content: center;
+  user-select: none;
 }
 
 #editor-container {
@@ -68,6 +68,7 @@ canvas {
   justify-content: center;
   flex: 1;
   cursor: none;
+  user-select: none;
 }
 
 /* CANVASES */
@@ -184,6 +185,7 @@ canvas {
   height: 30px;
   width: 30px;
   font-size: large;
+  cursor: pointer;
 }
 
 .taskbar-btn:hover {

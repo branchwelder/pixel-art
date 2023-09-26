@@ -1,18 +1,19 @@
 import { html, render } from "lit-html";
+import { when } from "lit-html/directives/when.js";
 
 import { state, updateState, undo } from "./state";
 
 import { Bimp } from "./Bimp";
 import { App } from "./App";
-import { brush, flood, line, rect, shift, eyedropper } from "/tools";
+import { brush, flood, line, rect, shift, eyedropper } from "./tools";
 
 import { layerPixel } from "./layerPixel";
 import { layerGrid } from "./layerGrid";
 import { layerOutline } from "./layerOutline";
 
+import { keypressTracker } from "./keypressTracker";
 import { pointerEvents } from "./pointerEvents";
 import { pointerTracker } from "./pointerTracker";
-
 import { touchEvents } from "./touchEvents";
 import { touchTracker } from "./touchTracker";
 
@@ -20,6 +21,8 @@ import { modalSettings } from "./modalSettings";
 import { modalDownload } from "./modalDownload";
 
 import { colorPalette } from "./colorPalette";
+
+import { debugPane } from "./debugPane";
 
 let app;
 
@@ -49,9 +52,9 @@ window.addEventListener("mousedown", (e) => {
 });
 
 function view() {
-  return html` <div id="taskbar">
+  return html`<div id="taskbar">
       <span style="font-weight: 700; font-size: 20px; padding-left:5px;">
-        art
+        pixel art
       </span>
       <div id="taskbar-buttons">
         <button
@@ -99,6 +102,8 @@ function view() {
       </div>
 
       <div id="color-palette">${colorPalette({ dispatch })}</div>
+
+      ${when(state.debug, debugPane)}
     </div>`;
 }
 
@@ -182,6 +187,8 @@ window.onload = () => {
         measureOnResize,
       ],
     });
+
+    keypressTracker(dispatch);
   }
   r();
 };

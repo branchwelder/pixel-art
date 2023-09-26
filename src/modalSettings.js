@@ -183,6 +183,12 @@ function settingsContent({ dispatch }) {
       type="checkbox"
       ?checked=${state.grid}
       @change=${(e) => dispatch({ grid: e.target.checked })} />
+    <label for="toggle-debug">Debug</label>
+    <input
+      id="toggle-debug"
+      type="checkbox"
+      ?checked=${state.debug}
+      @change=${(e) => dispatch({ debug: e.target.checked })} />
   </div>`;
 }
 

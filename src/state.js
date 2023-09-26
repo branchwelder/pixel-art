@@ -2,30 +2,43 @@ import { Bimp } from "./Bimp";
 
 export let state = {
   activeColor: 1,
-  grid: true,
   activeTool: "brush",
+
+  // INTERACTION FIELDS
+  heldKeys: new Set(),
+  pos: { x: -1, y: -1 },
+
+  // CANVAS FIELDS
+  grid: true,
   scale: 0,
+
+  // BITMAP FIELDS
   width: 30,
   height: 20,
   bitmap: Bimp.empty(30, 20, 0),
   palette: [
-    "#00000000",
-    "#000000ff",
-    "#faead6ff",
-    "#de7895ff",
-    "#f75060ff",
-    "#f7885fff",
-    "#f2c469ff",
-    "#b1d36fff",
-    "#3ee0cfff",
-    "#0091c2ff",
-    "#ad6dcaff",
+    "rgba(0,0,0,0)",
+    "rgba(0,0,0,1)",
+    "rgba(250,234,214,1)",
+    "rgba(222,120,149,1)",
+    "rgba(247,80,96,1)",
+    "rgba(247,136,95,1)",
+    "rgba(242,196,105,1)",
+    "rgba(177,211,111,1)",
+    "rgba(62,224,207,1)",
+    "rgba(0,145,194,1)",
+    "rgba(173,109,202,1)",
   ],
+
+  // HISTORY
+  lastSnapshot: 0,
+  snapshots: [],
+
+  // UI AND PANEL STATE
   paletteEdit: false,
   showSettingsModal: false,
   showDownloadModal: false,
-  lastSnapshot: 0,
-  snapshots: [],
+  debug: false,
 };
 
 export function updateState(action) {

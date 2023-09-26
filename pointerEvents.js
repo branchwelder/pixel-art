@@ -2,6 +2,7 @@ function pointerEventsExtension({ state, dispatch }, { tools, target }) {
   target.addEventListener("pointerdown", (e) => {
     let pos = state.pos;
     let tool = tools[state.activeTool];
+    if (!tool) return;
     let onMove = tool(pos, state, dispatch);
 
     if (!onMove) return;

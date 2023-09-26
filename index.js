@@ -4,7 +4,7 @@ import { state, updateState, undo } from "./state";
 
 import { Bimp } from "./Bimp";
 import { App } from "./App";
-import { brush, flood, line, rect, shift } from "/tools";
+import { brush, flood, line, rect, shift, eyedropper } from "/tools";
 
 import { layerPixel } from "./layerPixel";
 import { layerGrid } from "./layerGrid";
@@ -23,13 +23,14 @@ import { colorPalette } from "./colorPalette";
 
 let app;
 
-const tools = { brush, flood, line, rect, shift };
+const tools = { brush, flood, line, rect, shift, eyedropper };
 const iconMap = {
   flood: "fa-fill-drip fa-flip-horizontal",
   brush: "fa-paintbrush",
   rect: "fa-vector-square",
   line: "fa-minus",
   shift: "fa-up-down-left-right",
+  eyedropper: "fa-eyedropper",
 };
 
 function dispatch(action) {

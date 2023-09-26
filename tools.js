@@ -71,3 +71,11 @@ export function pan(startPos, state, dispatch) {
   }
   return onMove;
 }
+
+export function eyedropper(pos, state, dispatch) {
+  const newPalette = [...state.palette];
+  newPalette[state.activeColor] =
+    state.palette[state.bitmap.pixel(pos.x, pos.y)];
+
+  dispatch({ palette: newPalette });
+}

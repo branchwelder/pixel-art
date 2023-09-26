@@ -79,9 +79,7 @@ function view() {
         ${Object.keys(tools).map(
           (tool) =>
             html`<button
-              class="square-icon-button ${state.activeTool == tool
-                ? "active"
-                : ""}"
+              class="icon-btn ${state.activeTool == tool ? "active" : ""}"
               @click=${() => dispatch({ activeTool: tool })}>
               <i class="fa-solid ${iconMap[tool]}"></i>
             </button>`

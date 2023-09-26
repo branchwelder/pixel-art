@@ -43,42 +43,7 @@ function download(dataURL, fname) {
 }
 
 export function modalDownload({ dispatch }) {
-  return html`<style>
-      #download {
-        position: relative;
-      }
-
-      #download-modal {
-        position: absolute;
-        right: 0;
-        background-color: #333333;
-        z-index: 1000;
-        border-radius: 5px;
-        padding: 7px;
-        box-shadow: 0 0 10px 0 black;
-      }
-
-      #download-buttons {
-        display: flex;
-        margin-top: 7px;
-        gap: 4px;
-      }
-
-      .download-btn {
-        font-family: "National Park";
-        font-weight: 800;
-        background-color: #202020;
-        height: 30px;
-        padding: 7px;
-        border-radius: 5px;
-      }
-
-      .download-btn:hover {
-        background-color: #585858;
-        color: #e0e0e0;
-        box-shadow: 0 0 3px 0 black;
-      }
-    </style>
+  return html` ${styles}
     <div id="download">
       <button
         id="download-btn"
@@ -90,3 +55,44 @@ export function modalDownload({ dispatch }) {
       ${when(state.showDownloadModal, () => downloadContent({ dispatch }))}
     </div>`;
 }
+
+const styles = html`<style>
+  #download {
+    position: relative;
+  }
+
+  #download-modal {
+    position: absolute;
+    right: 0;
+    background-color: #333333;
+    z-index: 1000;
+    border-radius: 5px;
+    padding: 7px;
+    box-shadow: 0 0 10px 0 black;
+  }
+
+  #download-buttons {
+    display: flex;
+    margin-top: 7px;
+    gap: 4px;
+  }
+
+  .download-btn {
+    font-family: "National Park";
+    font-weight: 800;
+    background-color: #202020;
+    color: #9c9c9c;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    height: 30px;
+    padding: 7px;
+    border-radius: 5px;
+  }
+
+  .download-btn:hover {
+    background-color: #585858;
+    color: #e0e0e0;
+    box-shadow: 0 0 3px 0 black;
+  }
+</style>`;
